@@ -20,6 +20,9 @@ namespace Vocabulary
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(options => {
+                        options.ListenLocalhost(8000);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

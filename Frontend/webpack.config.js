@@ -1,15 +1,16 @@
-let path = require("path");
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let conf = {
-  entry: "./src/index.js",
+  entry: "./src/js/index.js",
   output: {
-    path: path.resolve(__dirname, "../wwwroot/js"),
-    filename: "site.js",
+    path: path.resolve(__dirname, "../wwwroot"),
+    filename: "js/site.js",
     publicPath: ""
   },
   devServer: {
     overlay: true,
-    contentBase: './src',
+    contentBase: "./src",
     watchContentBase: true
   },
   module: {
@@ -18,9 +19,21 @@ let conf = {
         test: /\.js$/,
         loader: "babel-loader",
         exclude: "/node_modules/"
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ["css-loader", "sass-loader"]
+        })
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin({
+      filename: "css/site.css"
+    })
+  ]
 }
 
 module.exports = (env, options) => {

@@ -1,4 +1,6 @@
-﻿import TaskHandler from "./TaskHandler";
+﻿import "../scss/index.scss";
+
+import TaskHandler from "./TaskHandler";
 import StatisticHandler from "./StatisticHandler";
 
 if (window.location.pathname === "/Learning/Index")

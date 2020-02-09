@@ -28,7 +28,7 @@ namespace Vocabulary
             services.AddControllersWithViews();
             // Add service to connect with database context
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Context>(options => options.UseNpgsql(connection).EnableSensitiveDataLogging());
+            services.AddDbContext<Context>(options => options.UseNpgsql(connection));//.EnableSensitiveDataLogging());
             
             services.AddTransient<IWordService, WordService>();
         }
@@ -48,30 +48,8 @@ namespace Vocabulary
             }
 
             app.UsePHPFilter();
-
-            app.UseHttpsRedirection();
-
-            // app.Map("/admin", (app) => {
-            //     // app.UseAuthorization();
-            //     app.UseStaticFiles();
-            //     app.UseRouting();
-            //     app.UseEndpoints(endpoints =>
-            //     {
-            //         endpoints.MapControllerRoute(
-            //             name: "default",
-            //             pattern: "{controller}/{id?}");
-            //     });
-            // });
-
             app.UseStaticFiles();
-
             app.UseRouting();
-
-            // app.Use(async (context, next) => {
-            //     if (context.Request.Path.Value == "/")
-                    
-            //     await next();
-            // });
 
             app.UseEndpoints(endpoints =>
             {
