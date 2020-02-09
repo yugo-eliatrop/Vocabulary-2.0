@@ -9,8 +9,16 @@
     </div>
 </div>
 <br/>
-<div class="text-center">
-    <h1 class="display-4" id="task-word" onclick="window.taskHandler.help()"></h1>
-    <button onclick="window.taskHandler.sendAnswer(true)" class="btn btn-success">Remember</button>
-    <button onclick="window.taskHandler.sendAnswer(false)" class="btn btn-danger">Forgot</button>
+<div class="text-center task-wrapper">
+    <div class="card">
+        <h3 class="display-5" id="task-word" onclick="window.taskHandler.help()"></h3>
+        <div>
+            <button onclick="window.taskHandler.sendAnswer(true)" class="btn btn-success">
+                Remember
+            </button>
+            <button onclick="window.taskHandler.sendAnswer(false)" class="btn btn-danger">
+                Forgot
+            </button>
+        </div>
+    </div>
 </div>

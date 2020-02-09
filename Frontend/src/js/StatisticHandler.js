@@ -19,10 +19,10 @@ class StatisticHandler {
     let root = document.getElementById("statistic");
     if (!root)
       return;
+    root.classList.add("progress");
     await this.loadData();
     if (!(this.groups && this.count && this.percents))
       return new Error("No data");
-    root.classList.add("progress");
     new Array(this.length)
       .fill(null)
       .forEach((elem, i) => {

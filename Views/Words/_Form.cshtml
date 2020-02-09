@@ -1,10 +1,20 @@
 @Html.ValidationSummary()
-<form action=@ViewBag.Action method="POST">
-    <input name="word.Id" type="number" hidden value=@ViewBag.word.Id />
-    <input name="word.Points" type="number" hidden value=@ViewBag.word.Points />
-    <label>Rus: </label>
-    <input name="word.Rus" type="text" value="@ViewBag.word.Rus" />
-    <label>Eng: </label>
-    <input name="word.Eng" type="text" value="@ViewBag.word.Eng" />
-    <button type="submit">Submit</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <form action=@ViewBag.Action method="POST">
+                <input name="word.Id" type="number" hidden value=@ViewBag.word.Id />
+                <input name="word.Points" type="number" hidden value=@ViewBag.word.Points />
+                <div class="form-group">
+                    <label for="eng-field">Eng</label>
+                    <input id="eng-field" class="form-control" name="word.Eng" type="text" value="@ViewBag.word.Eng" />
+                </div>
+                <div class="form-group">
+                    <label for="rus-field">Rus</label>
+                    <input id="rus-field" class="form-control" name="word.Rus" type="text" value="@ViewBag.word.Rus" />
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

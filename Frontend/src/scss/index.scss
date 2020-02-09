@@ -59,6 +59,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -67,17 +68,33 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-#task-word {
-  cursor: pointer;
-  margin-bottom: 20px;
-  position: relative;
-}
+.task-wrapper {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
-#task-word span {
-  font-size: 24px;
-  position: absolute;
-  top: 0;
-  color: gray;
+  .card {
+    padding: 30px;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #task-word {
+    cursor: pointer;
+    margin-bottom: 30px;
+    position: relative;
+    width: fit-content;
+
+    span {
+      font-size: 24px;
+      position: absolute;
+      top: 0;
+      color: gray;
+    }
+  }
 }
 
 .pagination {
