@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Learning";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="statistic"></div>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="text-center">
+    <h1 class="display-4" id="task-word" onclick="window.taskHandler.help()"></h1>
+    <button onclick="window.taskHandler.sendAnswer(true)" class="btn btn-success">Remember</button>
+    <button onclick="window.taskHandler.sendAnswer(false)" class="btn btn-danger">Forgot</button>
+</div>

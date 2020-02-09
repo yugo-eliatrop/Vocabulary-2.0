@@ -1,0 +1,25 @@
+@using Vocabulary
+@{
+    Word word = Model as Word;
+    ViewBag.Word = word;
+    ViewBag.Action = "/Words/Edit";
+    ViewData["Title"] = $"Edit {word.Eng}";
+    string deletePath = $"/Words/Delete/{word.Id}";
+}
+
+<div class="text-center">
+    <h4 class="display-4">
+        Edit Word
+    </h4>
+    @await Html.PartialAsync("_Form.cshtml")
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form action=@deletePath method="POST">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>

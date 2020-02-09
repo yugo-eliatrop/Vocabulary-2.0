@@ -1,0 +1,20 @@
+@using Vocabulary
+@{
+    Word word = Model as Word;
+    ViewData["Title"] = word == null ? "Error" : word.Eng;
+}
+
+<div class="text-center">
+    <h1 class="display-4">
+        @if (word != null)
+        {
+            <p>@word.Eng</p>
+            <p>@word.Rus</p>
+            <p>Points: @word.Points</p>
+        }
+        else
+        {
+            <span>Word not found</span>
+        }
+    </h1>
+</div>

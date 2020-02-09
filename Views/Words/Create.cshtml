@@ -1,0 +1,14 @@
+@using Vocabulary
+@{
+    Word word = Model == null ? new Word() : Model as Word;
+    ViewData["Title"] = "Add new word";
+    ViewBag.Word = word;
+    ViewBag.Action = "/Words/Create";
+}
+
+<div class="text-center">
+    <h4 class="display-4">
+        Add Word
+    </h4>
+    @await Html.PartialAsync("_Form.cshtml")
+</div>

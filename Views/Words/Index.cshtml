@@ -1,0 +1,43 @@
+﻿@using Vocabulary
+@{
+    ViewData["Title"] = "Main";
+    List<Word> words = Model as List<Word>;
+    int pages = ViewBag.Count / 10 + 1;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="statistic"></div>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="text-center">
+    @* <h3 class="display-4">Welcome</h3> *@
+    <p>Dictionary contains @ViewBag.Count words and phrases</p>
+</div>
+<div class="container">
+    <div class="row">
+        @foreach (Word word in words)
+        {
+            <div class="col-10 col-sm-6">
+                @Html.ActionLink(word.Eng, "Edit", "Words", new {word.Id})
+            </div>
+            <div class="col-sm-5 d-none d-sm-block">
+                @word.Rus
+            </div>
+            <div class="col-2 col-sm-1" style="text-align: right">
+                @word.Points
+            </div>
+        }
+    </div>
+    @* <div class="row">
+        <div class="col-12">
+            <div class="pagination">
+                <div>Prev</div>
+                <div></div>
+                <div>Next</div>
+            </div>
+        </div>
+    </div> *@
+</div>
