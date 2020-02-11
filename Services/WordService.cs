@@ -51,11 +51,11 @@ namespace Vocabulary
         public List<Word> GetAllPage(int page = 1) =>
             db.Words.OrderBy(w => w.Points).ThenBy(w => w.Id).Skip(10 * (page - 1)).Take(10).ToList();
 
-        public List<Word> GetWords(int count)
+        public List<Word> GetWords(int count = 20)
         {
-            if (count < 5)
-                count = this.count > 5 ? 5 : this.count;
-            int newPart = count - count / 3;
+            if (count < 20)
+                throw new ArgumentException("Count must be 20 and more");
+            int newPart = (int)(count * 0.67);
             List<Word> list1 = db.Words.OrderBy(w => w.UpdatedAt).Take(count - newPart).ToList();
             List<Word> list2 = db.Words.OrderBy(w => w.Points).Take(newPart).ToList();
             return list1.Union(list2, new WordComparer()).ToList();

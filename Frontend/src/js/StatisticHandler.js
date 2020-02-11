@@ -68,7 +68,13 @@ class StatisticHandler {
       return new Error("Argument exception");
     if ((group == 0 && !success) || (group == 5 && success))
       return;
-    let upGroup = success ? group + 1 : group - 1;
+
+    let upGroup = ((success, group) => {
+      if (!success && group === 5)
+        return 3;
+      return success ? group + 1 : group - 1;
+    })(success, group);
+
     this.groups[group]--;
     this.groups[upGroup]++;
     this.percents[group] = this.getPercents(this.groups[group]);

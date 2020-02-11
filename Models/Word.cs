@@ -97,7 +97,9 @@ namespace Vocabulary
 
         public void DownPoints()
         {
-            if (Points > 0)
+            if (Points == 5)
+                Points = 3;
+            else if (Points > 0)
                 --Points;
         }
     }

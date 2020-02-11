@@ -1,5 +1,5 @@
 class TaskHandler {
-  constructor(buffSize = 10) {
+  constructor(buffSize = 20) {
     this.words = [];
     this.nextIndex = 0;
     this.buff = buffSize;
@@ -9,10 +9,14 @@ class TaskHandler {
 
   loadWords = () => {
     fetch(`LoadWords/${this.buff}`)
-      .then(response => response.ok && response.json().then(data => {
-        this.words = data;
-        this.nextIndex = 0;
-        this.setNextTask();
+      .then(response => response.json().then(data => {
+        if (response.ok) {
+          this.words = data;
+          this.nextIndex = 0;
+          this.setNextTask();
+        }
+        else
+          document.getElementById("task-word").parentElement.innerHTML = data.error;
       }));
   }
 

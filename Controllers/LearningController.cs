@@ -31,6 +31,15 @@ namespace Vocabulary.Controllers
         }
 
         [HttpGet("LoadWords/{count:int}")]
-        public JsonResult LoadWords(int count) => Json(ws.GetWords(count));
+        public ActionResult LoadWords(int count = 20)
+        {
+            if (ws.Count() < 20)
+                return BadRequest(new {
+                    error = "Your dictionary must have at least 20 words"
+                });
+            if (count == default(int) || count < 20)
+                count = 20;
+            return Ok(ws.GetWords(count));
+        }
     }
 }
