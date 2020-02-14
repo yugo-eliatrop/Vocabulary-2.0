@@ -10,7 +10,7 @@ namespace Vocabulary
         Word First();
         List<Word> GetAll();
         List<Word> GetAllPage(int page);
-        List<Word> GetWords(int count);
+        List<Word> GetWords();
         Word Next();
         void Update(Word word);
         int Count();

@@ -8,7 +8,7 @@ class TaskHandler {
   }
 
   loadWords = () => {
-    fetch(`LoadWords/${this.buff}`)
+    fetch(`LoadWords`)
       .then(response => response.json().then(data => {
         if (response.ok) {
           this.words = data;

@@ -42,7 +42,7 @@ namespace Vocabulary
             {
                 if (value.Length > 0)
                 {
-                    rus = value;
+                    rus = HandleString(value);
                     updatedAt = DateTime.Now;
                 }
             }
@@ -55,7 +55,7 @@ namespace Vocabulary
             {
                 if (value.Length > 0)
                 {
-                    eng = value;
+                    eng = HandleString(value);
                     updatedAt = DateTime.Now;
                 }
             }
@@ -74,6 +74,12 @@ namespace Vocabulary
             }
         }
 
+        private string HandleString(string str)
+        {
+            if (char.IsLower(str[0]))
+                return char.ToUpper(str[0]) + str.Substring(1, str.Length - 1);
+            return str;
+        }
         public DateTime UpdatedAt
         {
             get => updatedAt;

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Vocabulary
@@ -8,10 +9,19 @@ namespace Vocabulary
     {
         private Context db;
         private int count;
+        private Dictionary<int, int> scheme;
+        
         public WordService(Context context)
         {
             db = context;
             count = db.Words.Count();
+            scheme = new Dictionary<int, int>();
+            scheme[0] = 5;
+            scheme[1] = 4;
+            scheme[2] = 3;
+            scheme[3] = 2;
+            scheme[4] = 1;
+            scheme[5] = 5;
         }
 
         public Word Add(Word word)
@@ -51,14 +61,18 @@ namespace Vocabulary
         public List<Word> GetAllPage(int page = 1) =>
             db.Words.OrderBy(w => w.Points).ThenBy(w => w.Id).Skip(10 * (page - 1)).Take(10).ToList();
 
-        public List<Word> GetWords(int count = 20)
+        public List<Word> GetWords()
         {
-            if (count < 20)
-                throw new ArgumentException("Count must be 20 and more");
-            int newPart = (int)(count * 0.67);
-            List<Word> list1 = db.Words.OrderBy(w => w.UpdatedAt).Take(count - newPart).ToList();
-            List<Word> list2 = db.Words.OrderBy(w => w.Points).Take(newPart).ToList();
-            return list1.Union(list2, new WordComparer()).ToList();
+            var result = new List<Word>(25);
+            int rem = 0;
+            for (int i = 0; i <= 5; ++i)
+            {
+                List<Word> list = db.Words.Where(x => x.Points == i).OrderBy(w => w.UpdatedAt).Take(scheme[i] + rem).ToList();
+                rem += scheme[i] - list.Count();
+                foreach (Word w in list)
+                    result.Add(w);
+            }
+            return result;
         }
 
         public Word Next()
