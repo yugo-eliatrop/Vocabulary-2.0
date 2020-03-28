@@ -1,14 +1,21 @@
+import { direction } from "./const";
+
 class TaskHandler {
   constructor(buffSize = 20) {
     this.words = [];
     this.nextIndex = 0;
     this.buff = buffSize;
-    this.engToRusMode = false;
+    this.engToRusMode = null;
+    this.direction = direction.free;
     this.loadWords();
   }
 
+  setDirection(dir) {
+    this.direction = dir;
+  }
+
   loadWords = () => {
-    fetch(`LoadWords`)
+    fetch("LoadWords")
       .then(response => response.json().then(data => {
         if (response.ok) {
           this.words = data;
@@ -38,7 +45,7 @@ class TaskHandler {
 
   setNextTask = () => {
     const word = this.words[this.nextIndex];
-    this.engToRusMode = Math.random() > 0.5;
+    this.engToRusMode = this.direction === direction.free ? Math.random() > 0.5 : this.direction === direction.toRus;
     const task = this.engToRusMode ? word.eng : word.rus;
     document.getElementById("task-word").innerHTML = `${task} <span>${word.points}</span>`;
     this.nextIndex++;
