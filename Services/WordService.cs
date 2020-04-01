@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 namespace Vocabulary
 {
+    public enum TaskScope {
+        All,
+        Learned,
+        NotLearned
+    }
     public class WordService : IWordService
     {
         private Context db;
@@ -61,13 +66,18 @@ namespace Vocabulary
         public List<Word> GetAllPage(int page = 1) =>
             db.Words.OrderBy(w => w.Points).ThenBy(w => w.Id).Skip(10 * (page - 1)).Take(10).ToList();
 
-        public List<Word> GetWords()
+        public List<Word> GetTask(TaskScope scope)
         {
             var result = new List<Word>(25);
             int rem = 0;
+            
             for (int i = 0; i <= 5; ++i)
             {
-                List<Word> list = db.Words.Where(x => x.Points == i).OrderBy(w => w.UpdatedAt).Take(scheme[i] + rem).ToList();
+                List<Word> list = db.Words
+                    .Where(x => x.Points == i && (scope == TaskScope.All || (x.IsLearned == (scope == TaskScope.Learned))))
+                    .OrderBy(w => w.UpdatedAt)
+                    .Take(scheme[i] + rem)
+                    .ToList();
                 rem += scheme[i] - list.Count();
                 foreach (Word w in list)
                     result.Add(w);

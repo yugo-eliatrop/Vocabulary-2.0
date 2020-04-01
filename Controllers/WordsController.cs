@@ -79,6 +79,15 @@ namespace Vocabulary.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost("[action]")]
+        public IActionResult SetLearnStatus(int id, bool isLearned)
+        {
+            Word word = ws.Find(id);
+            word.IsLearned = isLearned;
+            ws.Update(word);
+            return Ok();
+        }
+
         [HttpGet("[action]")]
         public IActionResult Statistic()
         {

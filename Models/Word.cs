@@ -5,8 +5,6 @@ namespace Vocabulary
 {
     public class Word
     {
-        public int Id { get; set; }
-
         // [Required]
         // [StringLength(50, MinimumLength = 1, ErrorMessage = "Length must be between 1 and 50 characters")]
         // public string Rus { get; set; }
@@ -19,7 +17,10 @@ namespace Vocabulary
         // [Range(0, 5)]
         // public int Points { get; set; }
 
+        // public bool IsLearned { get; set; }
+
         // public DateTime UpdatedAt { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "Length must be between 1 and 50 characters")]
@@ -74,12 +75,8 @@ namespace Vocabulary
             }
         }
 
-        private string HandleString(string str)
-        {
-            if (char.IsLower(str[0]))
-                return char.ToUpper(str[0]) + str.Substring(1, str.Length - 1);
-            return str;
-        }
+        public bool IsLearned { get; set; }
+
         public DateTime UpdatedAt
         {
             get => updatedAt;
@@ -91,9 +88,17 @@ namespace Vocabulary
             Rus = rus;
             Eng = eng;
             Points = points;
+            IsLearned = false;
         }
 
         public Word() { }
+
+        private string HandleString(string str)
+        {
+            if (char.IsLower(str[0]))
+                return char.ToUpper(str[0]) + str.Substring(1, str.Length - 1);
+            return str;
+        }
 
         public void UpPoints()
         {

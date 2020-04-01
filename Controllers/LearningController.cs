@@ -30,7 +30,7 @@ namespace Vocabulary.Controllers
             return Ok();
         }
 
-        [HttpGet("LoadWords")]
-        public ActionResult LoadWords() => Json(ws.GetWords());
+        [HttpPost("LoadWords")]
+        public ActionResult LoadWords(TaskScope scope = TaskScope.All) => Json(ws.GetTask(scope));
     }
 }

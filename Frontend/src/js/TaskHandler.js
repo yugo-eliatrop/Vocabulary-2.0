@@ -1,4 +1,7 @@
-import { direction } from "./const";
+import { direction, taskScope } from "./const";
+
+const checkBoxId = "learned-check-box";
+const taskWordId = "task-word";
 
 class TaskHandler {
   constructor(buffSize = 20) {
@@ -7,15 +10,37 @@ class TaskHandler {
     this.buff = buffSize;
     this.engToRusMode = null;
     this.direction = direction.free;
+    this.scope = taskScope.all;
     this.loadWords();
+    document.getElementById(checkBoxId)
+      .addEventListener("change", (e) => this.setLearnStatus(e.target.checked));
   }
 
   setDirection(dir) {
     this.direction = dir;
   }
 
+  setLearnStatus(isLearned) {
+    let id = this.words[this.nextIndex - 1].id;
+    let body = new FormData();
+    body.append("id", id);
+    body.append("isLearned", isLearned);
+    fetch("/Words/SetLearnStatus", { method: "POST", body })
+      .then(response => {
+        if (response.ok)
+          document.getElementById(checkBoxId).checked = isLearned;
+      });
+  }
+
+  setScope(scope) {
+    this.scope = scope;
+    this.loadWords();
+  }
+
   loadWords = () => {
-    fetch("LoadWords")
+    let body = new FormData();
+    body.append("scope", this.scope);
+    fetch("LoadWords", { method: "POST", body })
       .then(response => response.json().then(data => {
         if (response.ok) {
           this.words = data;
@@ -23,7 +48,7 @@ class TaskHandler {
           this.setNextTask();
         }
         else
-          document.getElementById("task-word").parentElement.innerHTML = data.error;
+          document.getElementById(taskWordId).parentElement.innerHTML = data.error;
       }));
   }
 
@@ -47,13 +72,14 @@ class TaskHandler {
     const word = this.words[this.nextIndex];
     this.engToRusMode = this.direction === direction.free ? Math.random() > 0.5 : this.direction === direction.toRus;
     const task = this.engToRusMode ? word.eng : word.rus;
-    document.getElementById("task-word").innerHTML = `${task} <span>${word.points}</span>`;
+    document.getElementById(taskWordId).innerHTML = `${task} <span>${word.points}</span>`;
+    document.getElementById(checkBoxId).checked = word.isLearned;
     this.nextIndex++;
   }
 
   help = () => {
     const word = this.words[this.nextIndex - 1];
-    document.getElementById("task-word").innerHTML = `${word[this.engToRusMode ? "rus" : "eng"]} <span>${word.points}</span>`;
+    document.getElementById(taskWordId).innerHTML = `${word[this.engToRusMode ? "rus" : "eng"]} <span>${word.points}</span>`;
     this.engToRusMode = !this.engToRusMode;
   }
 }
