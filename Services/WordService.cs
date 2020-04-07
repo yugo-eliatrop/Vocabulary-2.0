@@ -31,6 +31,7 @@ namespace Vocabulary
 
         public Word Add(Word word)
         {
+            word.UpdatedAt = DateTime.UtcNow;
             db.Add(word);
             db.SaveChanges();
             return word;
