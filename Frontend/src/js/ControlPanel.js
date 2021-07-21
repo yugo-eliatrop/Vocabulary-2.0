@@ -18,7 +18,7 @@ class ControlPanel {
     this.taskHandler = taskHandler;
     this.directionButton = this.addDirectionBtn();
     this.direction = direction.free;
-    this.scope = taskScope.all;
+    this.scope = taskScope.notLearned;
     this.scopeButton = this.addScopeBtn();
     // let indicator = document.createElement("div");
     // indicator.classList.add("col-6");

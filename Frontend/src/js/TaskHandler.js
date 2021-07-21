@@ -10,7 +10,7 @@ class TaskHandler {
     this.buff = buffSize;
     this.engToRusMode = null;
     this.direction = direction.free;
-    this.scope = taskScope.all;
+    this.scope = taskScope.notLearned;
     this.loadWords();
     document.getElementById(checkBoxId)
       .addEventListener("change", (e) => this.setLearnStatus(e.target.checked));
